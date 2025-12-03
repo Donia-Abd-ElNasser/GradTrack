@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "235092148216",
+    "project_id": "gradtrack-eafab",
+    "storage_bucket": "gradtrack-eafab.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:235092148216:android:130cfb200e894a3882a00d",
+        "android_client_info": {
+          "package_name": "com.example.gradtrack"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBIq6DgAS-QG8eFSI-3-W5CltLUD_IhV4Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
