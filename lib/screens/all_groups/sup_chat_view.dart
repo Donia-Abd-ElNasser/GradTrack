@@ -4,13 +4,13 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gradtrack/core/constants.dart';
 import 'package:gradtrack/core/routes.dart';
-import 'package:gradtrack/screens/all_chats/group/groups_cubit.dart';
-import 'package:gradtrack/screens/all_chats/group/groups_state.dart';
+import 'package:gradtrack/screens/all_groups/group/groups_cubit.dart';
+import 'package:gradtrack/screens/all_groups/group/groups_state.dart';
 import 'package:gradtrack/screens/auth/model/group_model.dart';
 import 'package:intl/intl.dart';
 
-class SupChatView extends StatelessWidget {
-  const SupChatView({super.key});
+class AllGroupsView extends StatelessWidget {
+  const AllGroupsView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +75,7 @@ class SupChatView extends StatelessWidget {
 String timeOnly = DateFormat('hh:mm a').format(time.toDate());
                           return GestureDetector(
                             onTap: () {
-                               GoRouter.of(context).push(AppRoutes.kGroupChat,extra: group);
+                               GoRouter.of(context).push(AppRoutes.kSupGroupChat,extra: group);
                             },
                             child: Container(
                               margin: const EdgeInsets.only(bottom: 14),

@@ -37,8 +37,8 @@ class WelcomeView extends StatelessWidget {
                     GoRouter.of(context).push(AppRoutes.kSupLoginView);
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color.fromARGB(255, 17, 112, 194),
-                    foregroundColor: Colors.black,
+                    backgroundColor: Colors.white,
+                    foregroundColor: Colors.black87,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(14),
                     ),
@@ -67,8 +67,8 @@ class WelcomeView extends StatelessWidget {
                     GoRouter.of(context).push(AppRoutes.kStdLoginView);
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color.fromARGB(255, 17, 112, 194),
-                    foregroundColor: Colors.black,
+                    backgroundColor:  Colors.white,
+                    foregroundColor: Colors.black87,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(14),
                     ),

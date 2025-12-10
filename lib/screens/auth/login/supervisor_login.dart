@@ -5,8 +5,8 @@ import 'package:gradtrack/core/routes.dart';
 import 'package:gradtrack/screens/auth/auth_cubit/auth_cubit.dart';
 
 class SupervisorLogin extends StatelessWidget {
-   SupervisorLogin({super.key});
-final TextEditingController nameController = TextEditingController();
+  SupervisorLogin({super.key});
+  final TextEditingController nameController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -15,23 +15,25 @@ final TextEditingController nameController = TextEditingController();
 
     return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
-       if (state is AuthFailure) {
+        if (state is AuthFailure) {
           Navigator.pop(context);
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.errmssg)),
-          );
-        } if (state is AuthLoading){
-        showDialog(
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(state.errmssg)));
+        }
+        if (state is AuthLoading) {
+          showDialog(
             context: context,
             barrierDismissible: false,
             builder: (_) => const Center(child: CircularProgressIndicator()),
           );
-
-      }
+        }
 
         if (state is AuthSuccess) {
           Navigator.pop(context);
-          GoRouter.of(context).pushReplacement(AppRoutes.kSupHomeView,extra: state.userModel);
+          GoRouter.of(
+            context,
+          ).pushReplacement(AppRoutes.kSupHomeView, extra: state.userModel);
         }
       },
       builder: (context, state) {
@@ -105,12 +107,12 @@ final TextEditingController nameController = TextEditingController();
                       ),
                       child: TextFormField(
                         controller: nameController,
-                         validator: (data) {
-        if (data!.isEmpty) {
-          return 'Supervisor\'s Name is required';
-        }
-        return null;
-      },
+                        validator: (data) {
+                          if (data!.isEmpty) {
+                            return 'Supervisor\'s Name is required';
+                          }
+                          return null;
+                        },
                         decoration: const InputDecoration(
                           prefixIcon: Icon(
                             Icons.person_rounded,
@@ -132,6 +134,7 @@ final TextEditingController nameController = TextEditingController();
                     const SizedBox(height: 20),
 
                     /// ----------- Phone Field -----------
+                   
                     Container(
                       height: 55,
                       decoration: BoxDecoration(
@@ -141,12 +144,12 @@ final TextEditingController nameController = TextEditingController();
                       ),
                       child: TextFormField(
                         controller: phoneController,
-                         validator: (data) {
-        if (data!.isEmpty) {
-          return 'Supervisor\'s Phone number is required';
-        }
-        return null;
-      },
+                        validator: (data) {
+                          if (data!.isEmpty) {
+                            return 'Supervisor\'s Phone number is required';
+                          }
+                          return null;
+                        },
                         keyboardType: TextInputType.phone,
                         decoration: const InputDecoration(
                           prefixIcon: Icon(
@@ -174,22 +177,29 @@ final TextEditingController nameController = TextEditingController();
                       height: 52,
                       child: ElevatedButton(
                         onPressed: () {
-                          final name=nameController.text.trim();
-                          final phone=phoneController.text.trim();
+                          final name = nameController.text.trim();
+                          final phone = phoneController.text.trim();
                           if (name.isEmpty) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text("Please enter your name")),
-    );
-    return;
-  }
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text("Please enter your name"),
+                              ),
+                            );
+                            return;
+                          }
 
-  if (phone.isEmpty) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text("Please enter your phone number")),
-    );
-    return;
-  }
-  BlocProvider.of<AuthCubit>(context).loginSupervisor(name: name, phone: phone);
+                          if (phone.isEmpty) {
+
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text("Please enter your phone number"),
+                              ),
+                            );
+                            return;
+                          }
+                          BlocProvider.of<AuthCubit>(
+                            context,
+                          ).loginSupervisor(name: name, phone: phone);
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.black87,

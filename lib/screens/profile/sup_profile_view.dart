@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gradtrack/core/constants.dart';
 import 'package:gradtrack/core/routes.dart';
+import 'package:gradtrack/core/shared_preferences.dart';
+import 'package:gradtrack/screens/auth/auth_cubit/auth_cubit.dart';
 
 class SupProfileView extends StatelessWidget {
   const SupProfileView({super.key});
@@ -84,6 +87,7 @@ class SupProfileView extends StatelessWidget {
                     icon: Icons.logout,
                     iconColor: Colors.red,
                     onTap: () {
+                      context.read<AuthCubit>().Logout();
                       GoRouter.of(context).pushReplacement(AppRoutes.kWelcomeView);
                     },
                   ),

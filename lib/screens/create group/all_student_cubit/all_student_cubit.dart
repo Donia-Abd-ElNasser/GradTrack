@@ -11,7 +11,11 @@ class AllStudentCubit extends Cubit<AllStudentsState> {
 
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  List<UserModel> _students = [];
+  List<UserModel> _students = [
+
+    
+  ];
+  
 
   void getAllStudents() async {
     emit(StudentsLoading());

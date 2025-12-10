@@ -4,16 +4,15 @@ import 'package:gradtrack/core/constants.dart';
 import 'package:gradtrack/screens/auth/model/user_model.dart';
 import 'package:gradtrack/screens/home/feedback_card.dart';
 
-
 class StudentHome extends StatelessWidget {
   const StudentHome({super.key, required this.user});
-final UserModel user;
+  final UserModel user;
   @override
   Widget build(BuildContext context) {
-     final width = MediaQuery.of(context).size.width;
+    final width = MediaQuery.of(context).size.width;
     return Scaffold(
-       backgroundColor: Colors.white,
-        body: SafeArea(
+      backgroundColor: Colors.white,
+      body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(16),
           child: Column(
@@ -30,13 +29,13 @@ final UserModel user;
                   gradient: const LinearGradient(
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
-                    colors: kGradient
+                    colors: kGradient,
                   ),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                     Text(
+                    Text(
                       "Welcome ${user.name}👋",
                       style: TextStyle(
                         fontSize: 22,
@@ -105,10 +104,10 @@ final UserModel user;
                 width: width,
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
-                 gradient: const LinearGradient(
+                  gradient: const LinearGradient(
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
-                    colors: kGradient
+                    colors: kGradient,
                   ),
                   borderRadius: BorderRadius.circular(18),
                 ),
@@ -150,21 +149,20 @@ final UserModel user;
                         ),
                       ),
                     ),
-                    
                   ],
                 ),
               ),
-             SizedBox(height: 5,),
-                    FeedbackCard(
-      title: "Initial Research",
-      subtitle: "Excellent work!",
-      rating: 8.5,
-    ),
-    FeedbackCard(
-      title: "Topic Selection",
-      subtitle: "Outstanding choice",
-      rating: 9,
-    ),
+              SizedBox(height: 5),
+              FeedbackCard(
+                title: "Initial Research",
+                subtitle: "Excellent work!",
+                rating: 8.5,
+              ),
+              FeedbackCard(
+                title: "Topic Selection",
+                subtitle: "Outstanding choice",
+                rating: 9,
+              ),
             ],
           ),
         ),
@@ -182,11 +180,11 @@ final UserModel user;
       width: 100,
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
-       gradient: const LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    colors: kGradient
-                  ),
+        gradient: const LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: kGradient,
+        ),
         borderRadius: BorderRadius.circular(16),
       ),
       child: Column(
@@ -205,7 +203,7 @@ final UserModel user;
               fontSize: 15,
               fontWeight: FontWeight.bold,
             ),
-          )
+          ),
         ],
       ),
     );

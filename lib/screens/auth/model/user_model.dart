@@ -27,7 +27,7 @@ class UserModel {
   factory UserModel.fromJson(Map<String, dynamic> json, String docId) {
     return UserModel(
       selected: false,
-      id: docId, // <-- هنا بنستخدم doc.id مش json['id']
+      id: docId,
       name: json['name'] ?? "",
       role: json['role'] ?? "",
       code: json['code'] ?? "",

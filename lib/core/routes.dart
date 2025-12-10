@@ -3,14 +3,15 @@ import 'package:go_router/go_router.dart';
 import 'package:gradtrack/core/custom_app_bar.dart';
 import 'package:gradtrack/core/custom_std_navbar.dart';
 import 'package:gradtrack/core/custom_sup_navbar.dart';
+import 'package:gradtrack/core/shared_preferences.dart';
 import 'package:gradtrack/screens/auth/login/student_login.dart';
 import 'package:gradtrack/screens/auth/login/supervisor_login.dart';
 import 'package:gradtrack/screens/auth/model/group_model.dart';
 import 'package:gradtrack/screens/auth/model/user_model.dart';
-import 'package:gradtrack/screens/all_chats/std_chat_view.dart';
-import 'package:gradtrack/screens/all_chats/sup_chat_view.dart';
+import 'package:gradtrack/screens/all_groups/std_chat_view.dart';
+import 'package:gradtrack/screens/all_groups/sup_chat_view.dart';
 import 'package:gradtrack/screens/chat/view/group_chat_view.dart';
-import 'package:gradtrack/screens/group/group_view.dart';
+import 'package:gradtrack/screens/create%20group/create_group_view.dart';
 import 'package:gradtrack/screens/home/student_home.dart';
 import 'package:gradtrack/screens/home/supervisor_home.dart';
 import 'package:gradtrack/screens/profile/std_profile.dart';
@@ -30,10 +31,16 @@ abstract class AppRoutes {
   static const kstdHomeView = '/stdhome';
   static const kGroupView = '/group';
   static const kSupHomeView = '/suphome';
-static const kGroupChat='/kgroupchat';
-  static GoRouter getRouter() {
+static const kSupGroupChat='/kgroupchat';
+static String get savedRole=>CacheHelper.getData(key: 'role');
+  static GoRouter getRouter({required bool isLoggedIn}) {
     return GoRouter(
-      initialLocation: kSplashView,
+   initialLocation: isLoggedIn && savedRole == 'student'
+    ? kstdHomeView
+    : isLoggedIn && savedRole == 'supervisor'
+        ? kSupHomeView
+        : kSplashView,
+
       routes: [
         // ==================== Public Routes ====================
         animatedRoute(
@@ -53,7 +60,7 @@ static const kGroupChat='/kgroupchat';
           builder: (context, state) => SupervisorLogin(),
         ),
          animatedRoute(
-          path: kGroupChat,
+          path: kSupGroupChat,
           builder: (context, state) { 
              final group = state.extra as GroupModel;
           return  GroupChatView(groupModel: group,);}
@@ -75,18 +82,18 @@ static const kGroupChat='/kgroupchat';
             animatedRoute(
               path: kSupHomeView,
                builder: (context, state) {
-                final user = state.extra as UserModel;
-                return SupervisorHome(user: user);
+               
+                return SupervisorHome();
               },
             ),
             animatedRoute(
               path: kGroupView,
-              builder: (context, state) =>  GroupView(),
+              builder: (context, state) =>  CreateGroupView(),
             ),
             
             animatedRoute(
               path: kSupChatView,
-              builder: (context, state) => SupChatView(),
+              builder: (context, state) => AllGroupsView(),
             ),
             animatedRoute(
               path: kSupProfileView,

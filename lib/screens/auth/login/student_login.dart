@@ -5,8 +5,8 @@ import 'package:gradtrack/core/routes.dart';
 import 'package:gradtrack/screens/auth/auth_cubit/auth_cubit.dart';
 
 class StudentLogin extends StatelessWidget {
-   StudentLogin({super.key});
-final TextEditingController nameController = TextEditingController();
+  StudentLogin({super.key});
+  final TextEditingController nameController = TextEditingController();
   final TextEditingController codeController = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -15,23 +15,25 @@ final TextEditingController nameController = TextEditingController();
 
     return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
-      if (state is AuthLoading){
-        showDialog(
+        if (state is AuthLoading) {
+          showDialog(
             context: context,
             barrierDismissible: false,
             builder: (_) => const Center(child: CircularProgressIndicator()),
           );
-
-      } if (state is AuthFailure) {
+        }
+        if (state is AuthFailure) {
           Navigator.pop(context);
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.errmssg)),
-          );
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(state.errmssg)));
         }
 
         if (state is AuthSuccess) {
           Navigator.pop(context);
-          GoRouter.of(context).pushReplacement(AppRoutes.kstdHomeView,extra: state.userModel);
+          GoRouter.of(
+            context,
+          ).pushReplacement(AppRoutes.kstdHomeView, extra: state.userModel);
         }
       },
       builder: (context, state) {
@@ -104,12 +106,12 @@ final TextEditingController nameController = TextEditingController();
                         border: Border.all(color: Colors.black87, width: 1),
                       ),
                       child: TextFormField(
-                         validator: (data) {
-        if (data!.isEmpty) {
-          return 'Student Name is required';
-        }
-        return null;
-      },
+                        validator: (data) {
+                          if (data!.isEmpty) {
+                            return 'Student Name is required';
+                          }
+                          return null;
+                        },
                         controller: nameController,
                         decoration: const InputDecoration(
                           prefixIcon: Icon(
@@ -141,11 +143,11 @@ final TextEditingController nameController = TextEditingController();
                       ),
                       child: TextFormField(
                         validator: (data) {
-        if (data!.isEmpty) {
-          return 'Student Code is required';
-        }
-        return null;
-      },
+                          if (data!.isEmpty) {
+                            return 'Student Code is required';
+                          }
+                          return null;
+                        },
                         controller: codeController,
                         keyboardType: TextInputType.phone,
                         decoration: const InputDecoration(
@@ -174,24 +176,29 @@ final TextEditingController nameController = TextEditingController();
                       height: 52,
                       child: ElevatedButton(
                         onPressed: () {
-final name= nameController.text.trim();
-final code=codeController.text.trim();
+                          final name = nameController.text.trim();
+                          final code = codeController.text.trim();
 
- if (name.isEmpty) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text("Please enter your name")),
-    );
-    return;
-  }
+                          if (name.isEmpty) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text("Please enter your name"),
+                              ),
+                            );
+                            return;
+                          }
 
-  if (code.isEmpty) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text("Please enter your student code")),
-    );
-    return;
-  }
-BlocProvider.of<AuthCubit>(context).loginStudent(name: name, code: code);
-
+                          if (code.isEmpty) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text("Please enter your student code"),
+                              ),
+                            );
+                            return;
+                          }
+                          BlocProvider.of<AuthCubit>(
+                            context,
+                          ).loginStudent(name: name, code: code);
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.black87,
