@@ -4,8 +4,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gradtrack/core/constants.dart';
 import 'package:gradtrack/core/routes.dart';
-import 'package:gradtrack/core/shared_preferences.dart';
+
 import 'package:gradtrack/screens/auth/auth_cubit/auth_cubit.dart';
+import 'package:gradtrack/screens/auth/model/user_model.dart';
 
 class SupProfileView extends StatelessWidget {
   const SupProfileView({super.key});
@@ -13,7 +14,17 @@ class SupProfileView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
+return FutureBuilder<UserModel?>(
+      future: context.read<AuthCubit>().getCurrentUserData(),
+      builder: (context, snapshot) {
+        
+        if (!snapshot.hasData) {
+          return const Scaffold(
+            body: Center(child: CircularProgressIndicator()),
+          );
+        }
 
+        final user = snapshot.data!;
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -36,7 +47,7 @@ class SupProfileView extends StatelessWidget {
       
               // ================= Name =========================
               Text(
-                "Supervisor Name",
+               'Dr ${user.name}',
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: width * 0.06,
@@ -48,10 +59,10 @@ class SupProfileView extends StatelessWidget {
       
               // ================= Phone ========================
               Text(
-                "+20 01012345678",
+                user.email,
                 style: TextStyle(
                   fontSize: width * 0.045,
-                  color: Colors.white70,
+                  color: Colors.black87,
                 ),
               ),
       
@@ -98,7 +109,7 @@ class SupProfileView extends StatelessWidget {
         ),
       ),
     );
-  }
+  });}
 }
 
 // ==========================================================
