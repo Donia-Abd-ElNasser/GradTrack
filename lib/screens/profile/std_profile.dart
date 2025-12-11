@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gradtrack/core/constants.dart';
 import 'package:gradtrack/core/routes.dart';
+import 'package:gradtrack/screens/auth/auth_cubit/auth_cubit.dart';
+import 'package:gradtrack/screens/auth/model/user_model.dart';
 
 class StdProfile extends StatelessWidget {
   const StdProfile({super.key});
@@ -10,6 +13,17 @@ class StdProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
+return FutureBuilder<UserModel?>(
+      future: context.read<AuthCubit>().getCurrentUserData(),
+      builder: (context, snapshot) {
+        
+        if (!snapshot.hasData) {
+          return const Scaffold(
+            body: Center(child: CircularProgressIndicator()),
+          );
+        }
+
+        final user = snapshot.data!;
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -24,8 +38,8 @@ class StdProfile extends StatelessWidget {
               Center(
                 child: CircleAvatar(
                   radius: width * 0.18,
-                  backgroundColor: Colors.black,
-                 // backgroundImage: AssetImage("assets/images/profile.png"),
+                 // backgroundColor: Colors.black,
+                  backgroundImage: AssetImage("assets/person.jpg"),
                 ),
               ),
       
@@ -33,7 +47,7 @@ class StdProfile extends StatelessWidget {
       
               // ================= Name =========================
               Text(
-                "Student Name",
+                user.name,
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: width * 0.06,
@@ -45,7 +59,7 @@ class StdProfile extends StatelessWidget {
       
               // ================= Phone ========================
               Text(
-                "+20 01012345678",
+                user.email,
                 style: TextStyle(
                   fontSize: width * 0.045,
                   color: Colors.white70,
@@ -63,7 +77,7 @@ class StdProfile extends StatelessWidget {
                 children: [
                   ProfileTile(label: "Role", value: "Student"),
                   ProfileTile(label: "Students Assigned", value: "25 Students"),
-                  ProfileTile(label: "Groups Managed", value: "4"),
+                  ProfileTile(label: "Groups", value: "4"),
                 ],
               ),
       
@@ -84,6 +98,7 @@ class StdProfile extends StatelessWidget {
                     icon: Icons.logout,
                     iconColor: Colors.red,
                     onTap: () {
+                       context.read<AuthCubit>().Logout();
                       GoRouter.of(context).pushReplacement(AppRoutes.kWelcomeView);
                     },
                   ),
@@ -94,6 +109,8 @@ class StdProfile extends StatelessWidget {
         ),
       ),
     );
+    
+   } );
   }
 }
 

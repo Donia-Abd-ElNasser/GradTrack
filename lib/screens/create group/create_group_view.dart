@@ -15,7 +15,7 @@ class CreateGroupView extends StatefulWidget {
 class _CreateGroupViewState extends State<CreateGroupView> {
   final TextEditingController groupNameController = TextEditingController();
   // State variable to hold the logged-in user's ID
-  String? _currentUserId; 
+  String? _currentUserId;
   bool _isLoadingUser = true;
 
   @override
@@ -37,7 +37,7 @@ class _CreateGroupViewState extends State<CreateGroupView> {
       print("Loaded User → ID: $savedUserId | Name: $savedName");
     }
 
-    // Update the state with the fetched ID and set loading to false
+   
     setState(() {
       _currentUserId = savedUserId;
       _isLoadingUser = false;
@@ -52,7 +52,7 @@ class _CreateGroupViewState extends State<CreateGroupView> {
 
   @override
   Widget build(BuildContext context) {
-    // No need for width if it's unused, removing it.
+   
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -101,7 +101,7 @@ class _CreateGroupViewState extends State<CreateGroupView> {
               ),
             ),
 
-            // Students List (Uses BlocBuilder, which is correct)
+
             Expanded(
               child: BlocBuilder<AllStudentCubit, AllStudentsState>(
                 builder: (context, state) {
@@ -132,7 +132,7 @@ class _CreateGroupViewState extends State<CreateGroupView> {
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
                               // Using kGradient which is defined in constants.dart
-                              colors: kGradient, 
+                              colors: kGradient,
                               begin: Alignment.topLeft,
                               end: Alignment.bottomRight,
                             ),
@@ -196,76 +196,90 @@ class _CreateGroupViewState extends State<CreateGroupView> {
                     borderRadius: BorderRadius.circular(14),
                   ),
                 ),
-                onPressed: _isLoadingUser
-                    ? null // Disable button while user ID is loading
-                    : () {
-                        final groupName = groupNameController.text.trim();
-                        final selectedStudents =
-                            context.read<AllStudentCubit>().getSelectedStudents();
+                onPressed:
+                    _isLoadingUser
+                        ? null 
+                        : () {
+                          final groupName = groupNameController.text.trim();
+                          final selectedStudents =
+                              context
+                                  .read<AllStudentCubit>()
+                                  .getSelectedStudents();
 
-                        if (_currentUserId == null) {
+                          if (_currentUserId == null) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text(
+                                  "User not logged in. Cannot create group.",
+                                ),
+                              ),
+                            );
+                            return;
+                          }
+
+                          if (groupName.isEmpty) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text("Enter group name")),
+                            );
+                            return;
+                          }
+
+                          if (selectedStudents.isEmpty) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text("Select students first"),
+                              ),
+                            );
+                            return;
+                          }
+
+                          // Collect selected student IDs
+                          final selectedIds =
+                              selectedStudents.map((s) => s.id).toList();
+
+                          if (!selectedIds.contains(_currentUserId)) {
+                            print(
+                              '-----------Adding Current User ID: $_currentUserId to members list =============',
+                            );
+                            selectedIds.add(_currentUserId!);
+                          }
+
+                          BlocProvider.of<GroupCreationCubit>(
+                            context,
+                          ).createGroup(
+                            groupName: groupName,
+                            memberIds: selectedIds,
+                          );
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
-                              content: Text("User not logged in. Cannot create group."),
+                              content: Text("Group Created Successfully"),
                             ),
                           );
-                          return;
-                        }
-
-                        if (groupName.isEmpty) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text("Enter group name")),
+                          print(
+                            '------------->Group Name: $groupName----------->',
                           );
-                          return;
-                        }
-
-                        if (selectedStudents.isEmpty) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text("Select students first")),
+                          print(
+                            "Selected Member IDs (including current user): $selectedIds",
                           );
-                          return;
-                        }
-
-                        // Collect selected student IDs
-                        final selectedIds =
-                            selectedStudents.map((s) => s.id).toList();
-
-                        // Add the current user's ID if it's not already included
-                        // This handles the case where the current user (e.g., a supervisor/mentor) 
-                        // should be part of the group they create.
-                        if (!selectedIds.contains(_currentUserId)) {
-                          print('-----------Adding Current User ID: $_currentUserId to members list =============');
-                          selectedIds.add(_currentUserId!); 
-                        }
-
-                        // Call the Cubit method to create the group
-                        BlocProvider.of<GroupCreationCubit>(
-                          context,
-                        ).createGroup(
-                          groupName: groupName,
-                          memberIds: selectedIds,
-                        );
-
-                        print('------------->Group Name: $groupName----------->');
-                        print("Selected Member IDs (including current user): $selectedIds");
-                      },
-                child: _isLoadingUser
-                    ? const SizedBox(
-                        height: 20,
-                        width: 20,
-                        child: CircularProgressIndicator(
-                          color: Colors.white,
-                          strokeWidth: 2,
+                        },
+                child:
+                    _isLoadingUser
+                        ? const SizedBox(
+                          height: 20,
+                          width: 20,
+                          child: CircularProgressIndicator(
+                            color: Colors.white,
+                            strokeWidth: 2,
+                          ),
+                        )
+                        : const Text(
+                          "Create Group",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      )
-                    : const Text(
-                        "Create Group",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
               ),
             ),
           ],

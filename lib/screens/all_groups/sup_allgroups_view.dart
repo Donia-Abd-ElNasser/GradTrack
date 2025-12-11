@@ -9,8 +9,8 @@ import 'package:gradtrack/screens/all_groups/group/groups_state.dart';
 import 'package:gradtrack/screens/auth/model/group_model.dart';
 import 'package:intl/intl.dart';
 
-class AllGroupsView extends StatelessWidget {
-  const AllGroupsView({super.key});
+class SupAllGroupsView extends StatelessWidget {
+  const SupAllGroupsView({super.key});
 
   @override
   Widget build(BuildContext context) {

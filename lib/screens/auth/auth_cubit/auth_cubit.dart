@@ -45,7 +45,7 @@ class AuthCubit extends Cubit<AuthState> {
 
     final user = UserModel.fromJson(data, doc.id);
 
-    // SAVE USER DATA LOCALLY
+    
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString("userId", doc.id);
     await prefs.setString("userName", data["name"]);
@@ -95,7 +95,7 @@ class AuthCubit extends Cubit<AuthState> {
  final savedprefs = await SharedPreferences.getInstance();
     final savedUserId = savedprefs.getString("userId");
     final savedrole = savedprefs.getString("userId");
-    //final savedUserId = savedprefs.getString("userId");
+  
     print('===================>${savedUserId}${savedrole}==============');
     emit(AuthSuccess(userModel: user));
   } catch (e) {
@@ -109,7 +109,7 @@ Future<UserModel?> getCurrentUserData() async {
     final prefs = await SharedPreferences.getInstance();
     final userId = prefs.getString("userId");
 
-    // No saved user
+    
     if (userId == null) return null;
 
     final doc = await FirebaseFirestore.instance
@@ -127,9 +127,7 @@ Future<UserModel?> getCurrentUserData() async {
 }
 
 void Logout()async{
- await CacheHelper.removeData(key: 'token');
-
-
+ await CacheHelper.removeData(key: 'userId');
 
 }
 }

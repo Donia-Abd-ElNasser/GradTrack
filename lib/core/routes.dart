@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gradtrack/core/custom_app_bar.dart';
 import 'package:gradtrack/core/custom_std_navbar.dart';
@@ -8,8 +9,9 @@ import 'package:gradtrack/screens/auth/login/student_login.dart';
 import 'package:gradtrack/screens/auth/login/supervisor_login.dart';
 import 'package:gradtrack/screens/auth/model/group_model.dart';
 import 'package:gradtrack/screens/auth/model/user_model.dart';
-import 'package:gradtrack/screens/all_groups/std_chat_view.dart';
-import 'package:gradtrack/screens/all_groups/sup_chat_view.dart';
+import 'package:gradtrack/screens/all_groups/std_allgroups_view.dart';
+import 'package:gradtrack/screens/all_groups/sup_allgroups_view.dart';
+import 'package:gradtrack/screens/chat/messages_cubit/messages_cubit.dart';
 import 'package:gradtrack/screens/chat/view/group_chat_view.dart';
 import 'package:gradtrack/screens/create%20group/create_group_view.dart';
 import 'package:gradtrack/screens/home/student_home.dart';
@@ -59,12 +61,17 @@ static String get savedRole=>CacheHelper.getData(key: 'role');
           path: kSupLoginView,
           builder: (context, state) => SupervisorLogin(),
         ),
-         animatedRoute(
-          path: kSupGroupChat,
-          builder: (context, state) { 
-             final group = state.extra as GroupModel;
-          return  GroupChatView(groupModel: group,);}
-        ),
+      animatedRoute(
+  path: kSupGroupChat,
+  builder: (context, state) {
+    final group = state.extra as GroupModel;
+    return BlocProvider(
+      create: (_) => MessagesCubit(),
+      child: GroupChatView(groupModel: group),
+    );
+  },
+),
+
 
         // ==================== Supervisor Screens ====================
         ShellRoute(
@@ -93,7 +100,7 @@ static String get savedRole=>CacheHelper.getData(key: 'role');
             
             animatedRoute(
               path: kSupChatView,
-              builder: (context, state) => AllGroupsView(),
+              builder: (context, state) => SupAllGroupsView(),
             ),
             animatedRoute(
               path: kSupProfileView,
@@ -118,13 +125,13 @@ static String get savedRole=>CacheHelper.getData(key: 'role');
             animatedRoute(
               path: kstdHomeView,
               builder: (context, state) {
-                final user = state.extra as UserModel;
-                return StudentHome(user: user);
+        
+                return StudentHome();
               },
             ),
             animatedRoute(
               path: kStdChatView,
-              builder: (context, state) => StdChatView(),
+              builder: (context, state) => StdAllGroupsView(),
             ),
             animatedRoute(
               path: kStdProfileView,

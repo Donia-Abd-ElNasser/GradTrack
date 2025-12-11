@@ -1,8 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gradtrack/core/shared_preferences.dart';
 import 'package:gradtrack/screens/all_groups/group/groups_state.dart';
 import 'package:gradtrack/screens/auth/model/group_model.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
 
 class GroupsCubit extends Cubit<GroupsState> {
   GroupsCubit() : super(GroupsInitial());
@@ -14,8 +15,8 @@ class GroupsCubit extends Cubit<GroupsState> {
       emit(GroupsLoading());
 
       // LOAD USER ID
-      final prefs = await SharedPreferences.getInstance();
-      final userId = prefs.getString("userId");
+     
+      final userId = CacheHelper.getData(key: "userId");
 
       if (userId == null) {
         emit(GroupsFailure("No user logged in"));

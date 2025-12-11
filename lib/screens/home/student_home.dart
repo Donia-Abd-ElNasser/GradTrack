@@ -1,15 +1,30 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gradtrack/core/constants.dart';
+import 'package:gradtrack/screens/auth/auth_cubit/auth_cubit.dart';
 import 'package:gradtrack/screens/auth/model/user_model.dart';
 import 'package:gradtrack/screens/home/feedback_card.dart';
 
 class StudentHome extends StatelessWidget {
-  const StudentHome({super.key, required this.user});
-  final UserModel user;
+  const StudentHome({super.key, });
+
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
+
+    return FutureBuilder<UserModel?>(
+      future: context.read<AuthCubit>().getCurrentUserData(),
+      builder: (context, snapshot) {
+        
+        if (!snapshot.hasData) {
+          return const Scaffold(
+            body: Center(child: CircularProgressIndicator()),
+          );
+        }
+
+        final user = snapshot.data!;
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -168,6 +183,8 @@ class StudentHome extends StatelessWidget {
         ),
       ),
     );
+    
+   } );}
   }
 
   /// Reusable small info card widget
@@ -208,4 +225,4 @@ class StudentHome extends StatelessWidget {
       ),
     );
   }
-}
+
