@@ -170,7 +170,7 @@ class _GroupChatViewState extends State<GroupChatView> {
                 }
     
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(child: CircularProgressIndicator());
+                  return const Center(child: CircularProgressIndicator(color: Colors.black87));
                 }
     
                 final docs = snapshot.data?.docs ?? [];

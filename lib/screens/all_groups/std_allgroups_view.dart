@@ -57,7 +57,7 @@ class StdAllGroupsView extends StatelessWidget {
                 BlocBuilder<GroupsCubit, GroupsState>(
                   builder: (context, state) {
                     if (state is GroupsLoading) {
-                      return const Center(child: CircularProgressIndicator());
+                      return const Center(child: CircularProgressIndicator(color: Colors.black87,));
                     }
 
                     if (state is GroupsFailure) {

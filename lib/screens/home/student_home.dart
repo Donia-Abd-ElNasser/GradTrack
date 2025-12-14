@@ -19,7 +19,7 @@ class StudentHome extends StatelessWidget {
         
         if (!snapshot.hasData) {
           return const Scaffold(
-            body: Center(child: CircularProgressIndicator()),
+            body: Center(child: CircularProgressIndicator(color: Colors.black87)),
           );
         }
 

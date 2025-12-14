@@ -55,7 +55,7 @@ class SupAllGroupsView extends StatelessWidget {
                 BlocBuilder<GroupsCubit, GroupsState>(
                   builder: (context, state) {
                     if (state is GroupsLoading) {
-                      return const Center(child: CircularProgressIndicator());
+                      return const Center(child: CircularProgressIndicator(color: Colors.black87));
                     } else if (state is GroupsFailure) {
                       return Center(
                           child: Text("Error: ${state.errrmssg}"));

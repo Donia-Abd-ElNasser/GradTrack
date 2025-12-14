@@ -106,7 +106,7 @@ class _CreateGroupViewState extends State<CreateGroupView> {
               child: BlocBuilder<AllStudentCubit, AllStudentsState>(
                 builder: (context, state) {
                   if (state is StudentsLoading) {
-                    return const Center(child: CircularProgressIndicator());
+                    return const Center(child: CircularProgressIndicator(color: Colors.black87));
                   }
 
                   if (state is StudentsFailure) {

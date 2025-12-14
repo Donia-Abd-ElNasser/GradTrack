@@ -15,7 +15,7 @@ class _SplashViewState extends State<SplashView> {
     super.initState();
 
     Future.delayed(const Duration(seconds: 3), () {
-      GoRouter.of(context).pushReplacement(AppRoutes.kWelcomeView);
+      GoRouter.of(context).pushReplacement(AppRoutes.kOnboardingView);
     });
   }
 

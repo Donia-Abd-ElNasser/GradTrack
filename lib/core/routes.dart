@@ -13,11 +13,16 @@ import 'package:gradtrack/screens/all_groups/std_allgroups_view.dart';
 import 'package:gradtrack/screens/all_groups/sup_allgroups_view.dart';
 import 'package:gradtrack/screens/chat/messages_cubit/messages_cubit.dart';
 import 'package:gradtrack/screens/chat/view/group_chat_view.dart';
+import 'package:gradtrack/screens/chat/view/uploadimage_and_pdf.dart';
 import 'package:gradtrack/screens/create%20group/create_group_view.dart';
 import 'package:gradtrack/screens/home/student_home.dart';
 import 'package:gradtrack/screens/home/supervisor_home.dart';
+import 'package:gradtrack/screens/profile/about_gradtrack.dart';
+import 'package:gradtrack/screens/profile/ai_assistant.dart';
+import 'package:gradtrack/screens/profile/rate_gradtrack.dart';
 import 'package:gradtrack/screens/profile/std_profile.dart';
 import 'package:gradtrack/screens/profile/sup_profile_view.dart';
+import 'package:gradtrack/screens/splash/on_boarding.dart';
 import 'package:gradtrack/screens/splash/splash_view.dart';
 import 'package:gradtrack/screens/splash/welcome_view.dart';
 
@@ -34,6 +39,11 @@ abstract class AppRoutes {
   static const kGroupView = '/group';
   static const kSupHomeView = '/suphome';
 static const kSupGroupChat='/kgroupchat';
+static const kUploadsView='/kuploads';
+static const kAboutView='/kabout';
+static const kAssistantView='/kassistant';
+static const kRateView='/krating';
+static const kOnboardingView='/onboarding';
 static String get savedRole=>CacheHelper.getData(key: 'role');
   static GoRouter getRouter({required bool isLoggedIn}) {
     return GoRouter(
@@ -60,6 +70,22 @@ static String get savedRole=>CacheHelper.getData(key: 'role');
         animatedRoute(
           path: kSupLoginView,
           builder: (context, state) => SupervisorLogin(),
+        ),
+        animatedRoute(
+          path: kAboutView,
+          builder: (context, state) => const AboutAppScreen(),
+        ),
+        animatedRoute(
+          path: kRateView,
+          builder: (context, state) => const RateAppScreen(),
+        ),
+         animatedRoute(
+          path: kOnboardingView,
+          builder: (context, state) => OnBoardingView(),
+        ),
+        animatedRoute(
+          path: kAssistantView,
+          builder: (context, state) => const AssistanceScreen(),
         ),
       animatedRoute(
   path: kSupGroupChat,
@@ -106,6 +132,7 @@ static String get savedRole=>CacheHelper.getData(key: 'role');
               path: kSupProfileView,
               builder: (context, state) => const SupProfileView(),
             ),
+            
           ],
         ),
 
@@ -129,6 +156,10 @@ static String get savedRole=>CacheHelper.getData(key: 'role');
                 return StudentHome();
               },
             ),
+            animatedRoute(
+          path: kUploadsView,
+          builder: (context, state) => UploadSwitcherView(),
+        ),
             animatedRoute(
               path: kStdChatView,
               builder: (context, state) => StdAllGroupsView(),

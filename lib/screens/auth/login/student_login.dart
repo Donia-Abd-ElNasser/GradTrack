@@ -19,7 +19,7 @@ class StudentLogin extends StatelessWidget {
           showDialog(
             context: context,
             barrierDismissible: false,
-            builder: (_) => const Center(child: CircularProgressIndicator()),
+            builder: (_) => const Center(child: CircularProgressIndicator(color: Colors.black87)),
           );
         }
         if (state is AuthFailure) {

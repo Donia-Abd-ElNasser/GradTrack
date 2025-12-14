@@ -36,11 +36,16 @@ class CustomStdBottomNav extends StatelessWidget {
             builder: (context) {
               final String location = GoRouterState.of(context).uri.toString();
               int selectedIndex = 0;
-              if (location.startsWith(AppRoutes.kStdChatView)) {
+
+               if (location.startsWith(AppRoutes.kUploadsView)) {
                 selectedIndex = 1;
               }
-              if (location.startsWith(AppRoutes.kStdProfileView)) {
+
+              if (location.startsWith(AppRoutes.kStdChatView)) {
                 selectedIndex = 2;
+              }
+              if (location.startsWith(AppRoutes.kStdProfileView)) {
+                selectedIndex = 3;
               }
 
              
@@ -53,12 +58,16 @@ class CustomStdBottomNav extends StatelessWidget {
                       (context).go(AppRoutes.kstdHomeView);
                       break;
                     case 1:
+                      (context).go(AppRoutes.kUploadsView);
+                      break;
+                    case 2:
                       (context).go(AppRoutes.kStdChatView);
                       break;
                    
-                    case 2:
+                    case 3:
                       (context).go(AppRoutes.kStdProfileView);
                       break;
+                    
                   }
                 },
                 type: BottomNavigationBarType.fixed,
@@ -69,9 +78,9 @@ class CustomStdBottomNav extends StatelessWidget {
                 items: [
                   NavigationItem(FontAwesomeIcons.house, selectedIndex == 0),
                  
-
-                  NavigationItem(Icons.message, selectedIndex == 1),
-                  NavigationItem(Icons.person, selectedIndex == 2),
+NavigationItem(Icons.upload_file, selectedIndex == 1),
+                  NavigationItem(Icons.message, selectedIndex == 2),
+                  NavigationItem(Icons.person, selectedIndex == 3),
                 ],
               );
             },

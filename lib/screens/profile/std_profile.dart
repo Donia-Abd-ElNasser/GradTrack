@@ -19,7 +19,7 @@ return FutureBuilder<UserModel?>(
         
         if (!snapshot.hasData) {
           return const Scaffold(
-            body: Center(child: CircularProgressIndicator()),
+            body: Center(child: CircularProgressIndicator(color: Colors.black87)),
           );
         }
 
@@ -85,9 +85,28 @@ return FutureBuilder<UserModel?>(
       
               // ================= Card: Settings ================
               ProfileCard(
-                title: "Settings",
+                title: "   Settings",
                 icon: FontAwesomeIcons.gear,
                 children: [
+                   SettingsTile(
+                    title: "About GradTrack App",
+                    icon: Icons.info_outline,
+                    onTap: () {
+                       GoRouter.of(context).push(AppRoutes.kAboutView);
+                    },
+                  ), SettingsTile(
+                    title: "Ai Assistant",
+                    icon: Icons.help_outline,
+                    onTap: () {
+                       GoRouter.of(context).push(AppRoutes.kAssistantView);
+                    },
+                  ), SettingsTile(
+                    title: "Rate GradTrack App",
+                    icon: Icons.star_border,
+                    onTap: () {
+                      GoRouter.of(context).push(AppRoutes.kRateView);
+                    },
+                  ),
                   SettingsTile(
                     title: "Change Password",
                     icon: Icons.lock,
@@ -99,7 +118,7 @@ return FutureBuilder<UserModel?>(
                     iconColor: Colors.red,
                     onTap: () {
                        context.read<AuthCubit>().Logout();
-                      GoRouter.of(context).pushReplacement(AppRoutes.kWelcomeView);
+                      GoRouter.of(context).pushReplacement(AppRoutes.kSplashView);
                     },
                   ),
                 ],
@@ -219,8 +238,8 @@ class SettingsTile extends StatelessWidget {
     return ListTile(
       contentPadding: EdgeInsets.zero,
       leading: Icon(icon, color: iconColor ?? Colors.black87),
-      title: Text(title, style: const TextStyle(fontSize: 15)),
-      trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+      title: Text(title, style: const TextStyle(fontSize: 15,fontWeight: FontWeight.w700)),
+      trailing: const Icon(Icons.arrow_forward_ios, size: 16,color: Colors.black87,),
       onTap: onTap,
     );
   }
