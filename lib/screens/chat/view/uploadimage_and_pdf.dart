@@ -159,12 +159,13 @@ if (selectedImage != null)
                 
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text("Done",style: TextStyle(color: Colors.black87)),
-        content: const Text("Your Image Uploaded Successfully.",style: TextStyle(color: Colors.green)),
+        backgroundColor: Colors.black87,
+        title: const Text("Done",style: TextStyle(color: Colors.green)),
+        content: const Text("Your Image Uploaded Successfully.",style: TextStyle(color: Colors.white)),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: const Text("OK",style: TextStyle(color: Colors.black87),),
+            child: const Text("OK",style: TextStyle(color: Colors.green),),
           ),
         ],
       ),

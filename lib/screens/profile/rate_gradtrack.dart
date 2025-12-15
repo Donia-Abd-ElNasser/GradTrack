@@ -24,10 +24,10 @@ int selected=0;
   builder: (context) {
     int tempRating = selectedRating; // تبدأ بالقيمة الحالية
     return AlertDialog(
-      shadowColor: Colors.white,
+      backgroundColor: Colors.black87,
       title: const Text(
         "Select Rating",
-        style: TextStyle(color: Colors.black87),
+        style: TextStyle(color: Colors.white,fontWeight: FontWeight.w700),
       ),
       content: StatefulBuilder(
         builder: (context, setStateDialog) {
@@ -42,7 +42,7 @@ int selected=0;
                 },
                 child: Icon(
                   Icons.star_rounded,
-                  color: index < tempRating ? Colors.amber : Colors.black87,
+                  color: index < tempRating ? Colors.amber : Colors.white,
                   size: 30,
                 ),
               );
@@ -55,19 +55,19 @@ int selected=0;
           onPressed: () => Navigator.pop(context), // Cancel
           child: const Text(
             "Cancel",
-            style: TextStyle(color: Colors.black87),
+            style: TextStyle(color: Colors.white,fontWeight: FontWeight.w700),
           ),
         ),
         TextButton(
           onPressed: () {
             setState(() {
-              selectedRating = tempRating; // حفظ التقييم عند OK
+              selectedRating = tempRating;
             });
             Navigator.pop(context);
           },
           child: const Text(
             "OK",
-            style: TextStyle(color: Colors.black87),
+            style: TextStyle(color: Colors.white,fontWeight: FontWeight.w700),
           ),
         ),
       ],
@@ -85,7 +85,7 @@ int selected=0;
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: Colors.white,
-        elevation: 0,
+       
         title: CustomProfileBackButon(width: width, text: 'Rate our App'),
       ),
       body: SingleChildScrollView(

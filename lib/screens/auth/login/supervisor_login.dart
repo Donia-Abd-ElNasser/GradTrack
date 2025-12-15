@@ -106,6 +106,7 @@ class SupervisorLogin extends StatelessWidget {
                         border: Border.all(color: Colors.black87, width: 1),
                       ),
                       child: TextFormField(
+                        cursorColor: Colors.black87,
                         controller: nameController,
                         validator: (data) {
                           if (data!.isEmpty) {
@@ -143,6 +144,7 @@ class SupervisorLogin extends StatelessWidget {
                         border: Border.all(color: Colors.black87, width: 1),
                       ),
                       child: TextFormField(
+                        cursorColor: Colors.black87,
                         controller: phoneController,
                         validator: (data) {
                           if (data!.isEmpty) {

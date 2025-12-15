@@ -106,6 +106,7 @@ class StudentLogin extends StatelessWidget {
                         border: Border.all(color: Colors.black87, width: 1),
                       ),
                       child: TextFormField(
+                        cursorColor: Colors.black87,
                         validator: (data) {
                           if (data!.isEmpty) {
                             return 'Student Name is required';
@@ -142,6 +143,7 @@ class StudentLogin extends StatelessWidget {
                         border: Border.all(color: Colors.black87, width: 1),
                       ),
                       child: TextFormField(
+                        cursorColor: Colors.black87,
                         validator: (data) {
                           if (data!.isEmpty) {
                             return 'Student Code is required';

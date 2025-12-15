@@ -16,8 +16,8 @@ class AboutAppScreen extends StatelessWidget {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: Colors.white,
-        elevation: 0,
-      
+    foregroundColor: Colors.white,
+      surfaceTintColor: Colors.white,
         title: CustomProfileBackButon(width: width, text: 'About')
       ),
       body: SingleChildScrollView(

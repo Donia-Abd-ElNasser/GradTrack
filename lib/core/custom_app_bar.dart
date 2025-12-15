@@ -13,6 +13,7 @@ class CustomAppBar extends StatelessWidget {
       height: 62,
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
+        
         borderRadius: BorderRadius.circular(25),
         // gradient: const LinearGradient(
         //   begin: Alignment.topLeft,
@@ -23,7 +24,7 @@ class CustomAppBar extends StatelessWidget {
         //     Color(0xFF2563EB),
         //   ],
         // ),
-        color: Colors.transparent
+        color: Colors.white
       ),
       child: Row(
         children: [

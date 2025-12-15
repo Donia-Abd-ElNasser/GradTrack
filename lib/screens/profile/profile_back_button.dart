@@ -32,7 +32,7 @@ final double width;
                   ),
                 ),
               SizedBox(width: 10),
-
+    
               Text(
                 text,
                 style: TextStyle(

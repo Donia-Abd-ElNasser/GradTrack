@@ -16,7 +16,7 @@ class AssistanceScreen extends StatelessWidget {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: Colors.white,
-        elevation: 0,
+        
       
         title: CustomProfileBackButon(width: width, text: 'Ai Assistant')
       ),
